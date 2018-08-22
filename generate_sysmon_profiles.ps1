@@ -1,25 +1,26 @@
 <#
 .SYNOPSIS
-  This script aims to make rights assignment for LAPS Password attributes in Active Directory
+  This script aims to generate sysmon policies from sysmon modules
 
 .DESCRIPTION
-  For running this script LAPS management tools must be installed
-  This script gives right to computers to manage their local admin passwords
-  THis script makes right assigment based on LAPS Baseline located here https://confluence.iter.org/x/gC1kCg
+  Read sysmon modules names
+  Merge modules for creating policies
 
-.PARAMETER File
+.PARAMETER ReferencePolicyPath
+  Configuration skeleton
+
+.PARAMETER OutFolder
+  Destination folder for the generated Policies
 
 .OUTPUTS
-  Add extended rights for user groups on some computers OU
+  Sysmon policies
 
 .NOTES
   Version:        1.0
   Author:         SOUMILL
-  Creation Date:  August 13th 2018
+  Creation Date:  August 21th 2018
   Purpose/Change: Initial script development
   
-.EXAMPLE
- .\laps_right_assignment.ps1
 
 #>
 

@@ -56,6 +56,26 @@ function Create-Output-Folder
     }
 }
 
+function Clean-Output-Folder ($Policy_Names)
+{
+    try
+    {
+        #Iterate through Policies
+        foreach ($Policy in $Policy_Names)
+        {
+            $File_Path = Join-Path -Path $OutFolder -ChildPath $Filename
+            if (Test-Path $File_Path)
+            {
+                Remove-Item -Path $File_Path -Force
+            }
+        }
+    }
+    catch
+    {
+        Write-Error $_.Exception
+    }
+}
+
 function Get-Sysmon-Modules
 {
     try
@@ -102,8 +122,8 @@ function Get-Policy-Names ($All_Sysmon_Modules)
 
 function Generate-Sysmon-Policies ($All_Sysmon_Modules, $Policy_Names)
 {
-    #try
-    #{
+    try
+    {
         #Iterate through Policies
         foreach ($Policy in $Policy_Names)
         {
@@ -133,11 +153,12 @@ function Generate-Sysmon-Policies ($All_Sysmon_Modules, $Policy_Names)
             $Filename = "sysmon_" + $Policy + ".xml"
             $Policy_Modules | Merge-SysmonXMLConfiguration -ReferencePolicyPath $ReferencePolicyPath | Out-File (Join-Path -Path $OutFolder -ChildPath $Filename)
         }
-    #}
-    #catch
-    #{
-    #    Write-Error $_.Exception
-    #}
+    }
+    catch
+    {
+        Clean-Output-Folder $Policy_Names
+        Write-Error $_.Exception
+    }
     
 }
 

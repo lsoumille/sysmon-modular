@@ -151,7 +151,7 @@ function Generate-Sysmon-Policies ($All_Sysmon_Modules, $Policy_Names)
             }
             #Generate Sysmon profile
             $Filename = "sysmon_" + $Policy + ".xml"
-            $Policy_Modules | Merge-SysmonXMLConfiguration -ReferencePolicyPath $ReferencePolicyPath | Out-File (Join-Path -Path $OutFolder -ChildPath $Filename)
+            $Policy_Modules | Merge-SysmonXMLConfiguration -ReferencePolicyPath $ReferencePolicyPath -ExcludeMergeComments | Out-File (Join-Path -Path $OutFolder -ChildPath $Filename)
         }
     }
     catch
